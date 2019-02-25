@@ -2,7 +2,6 @@
 
 library(shiny)
 library(shinyWidgets)
-library(shinycssloaders)
 
 ui <- fluidPage(
     titlePanel('Mutation Testing Guided Work'),
@@ -44,26 +43,33 @@ ui <- fluidPage(
                         label='Utility function',
                         choices=c('Default',
                                   'domStrength (with interactions)',
-                                  'domStrength (no interaction)s',
+                                  'domStrength (no interactions)',
                                   'isDom (with interactions)',
                                   'isDom (no interactions)',
                                   'Custom'),
                         selected='Default'),
-            conditionalPanel(condition='input.utility == "custom"',
+            conditionalPanel(condition='input.utility == "Custom"',
                              fluidRow(
-                                 column(1, numericInput(inputId='intercept', label='Intercept', value=0)),
-                                 column(1, numericInput(inputId='eq_coeff', label='EQ coefficient', value=0)),
-                                 column(1, numericInput(inputId='tr_coeff', label='TR coefficient', value=0)),
-                                 column(1, numericInput(inputId='dm_coeff', label='DM coefficient', value=0)),
-                                 column(1, numericInput(inputId='eq_dm_inter', label='EQ:DM interaction', value=0)))),
+                                 column(4, numericInput(inputId='intercept', label='Intercept', value=0)),
+                                 column(4, numericInput(inputId='eq_coeff', label='EQ', value=0)),
+                                 column(4, numericInput(inputId='tr_coeff', label='TR', value=0)),
+                                 column(4, numericInput(inputId='dm_coeff', label='DM', value=0)),
+                                 column(4, numericInput(inputId='eq_dm_inter', label='EQ:DM', value=0)))),
             sliderInput(inputId='trials',
                         label='Number of trials',
                         min=1,
-                        max=200,
-                        value=10)
+                        max=100,
+                        value=10),
+            sliderInput(inputId='simulate',
+                        label='Animate simulation',
+                        min=1,
+                        max=10,
+                        value=10,
+                        animate = animationOptions(interval=400, loop=FALSE)),
+            actionButton(inputId='run', label='Simulate Work')
         ),
         mainPanel(
-            plotOutput(outputId='work_graph') %>% withSpinner(color='dodgerblue')
+            plotOutput(outputId='work_graph')
         )
     )
 )
