@@ -133,7 +133,7 @@ trial <- function(subject, test_sig_map, utility, mutants, test_trials) {
 
 guide_work <- function(project_id, bug_id, classifier, utility_function, test_trials) {
     # Get data
-    data_dir <- paste('../../data/', project_id, '/', sep='')
+    data_dir <- paste('data/', project_id, '/', sep='')
     detailed_results <- read.csv(paste(data_dir, 'detailedResults.csv', sep=''))
     score_matrix <- paste(data_dir, bug_id, '/scoreMatrix.csv', sep='')
     subject = subset(detailed_results, bugId == 51 & classifier == classifier)

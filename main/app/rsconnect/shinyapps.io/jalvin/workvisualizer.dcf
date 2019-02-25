@@ -1,0 +1,12 @@
+name: workvisualizer
+title: workvisualizer
+username:
+account: jalvin
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 737291
+bundleId: 1896908
+url: https://jalvin.shinyapps.io/workvisualizer/
+when: 1551057155.2275
+asMultiple: FALSE
+asStatic: FALSE

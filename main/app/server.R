@@ -3,7 +3,7 @@
 library(shiny)
 library(plotly)
 
-source('../guided_work.R')
+source('guided_work.R')
 
 server <- function(input, output, session) {
     output$work_graph <- renderPlot({
