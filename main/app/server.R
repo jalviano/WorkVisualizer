@@ -59,5 +59,3 @@ server <- function(input, output, session) {
         })
     })
 }
-
-# TODO: 1. Add comments to code; 2. Write CSS styling; 3. Include plot title and modify axes formatting 
