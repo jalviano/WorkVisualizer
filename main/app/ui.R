@@ -3,7 +3,7 @@
 library(shiny)
 library(shinyWidgets)
 
-ui <- fluidPage(
+ui <- fluidPage(theme='style.css',
     titlePanel('Mutation Testing Guided Work'),
     sidebarLayout(
         sidebarPanel(
@@ -69,7 +69,9 @@ ui <- fluidPage(
             actionButton(inputId='run', label='Simulate Work')
         ),
         mainPanel(
-            plotOutput(outputId='work_graph')
+            h3('Mutant Selection Simulation'),
+            plotOutput(outputId='work_graph',
+                       width='100%')
         )
     )
 )

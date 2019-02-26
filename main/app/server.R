@@ -6,9 +6,11 @@ library(plotly)
 source('guided_work.R')
 
 server <- function(input, output, session) {
+    # Update number of trials for animation
     observeEvent(input$trials,  {
         updateSliderInput(session=session, inputId='simulate', max=input$trials)
     })
+    # Rerun work simulation
     observeEvent(input$run, {
         output$work_graph <- renderPlot({
             project_id <- input$project
@@ -39,16 +41,23 @@ server <- function(input, output, session) {
                                            return(input$intercept + input$eq_coeff * eq + input$tr_coeff * tr 
                                                   + input$dm_coeff * dm + input$eq_dm_inter * eq * dm)}
             )
+            # Get guided work results
             results <- guide_work(project_id, bug_id, classifier, utility_function, test_trials)
             trial <- reactive({ (input$simulate)})
+            # Plot work trials and mean
             output$work_graph <- renderPlot({
                 scores <- format_results(results[1:trial()])
                 lntyp <- append(rep('dotted', test_trials), 'solid')
                 color <- append(rep('springgreen3', test_trials), 'dodgerblue')
                 lnwd <- append(rep(1, test_trials), 3)
-                matplot(scores, type='l', lwd=lnwd, lty=lntyp, col=color, xlab='Work', ylab='Test Completeness')
+                matplot(scores, type='l', lwd=lnwd, lty=lntyp, col=color, xlab='Work', ylab='Test Completeness', 
+                        main=paste('Guided work for ', project_id, '-', bug_id, sep=''), cex.main=1.5, cex.axis=1.5, cex.lab=1.5)
                 grid()
-            })
+            },
+            height=500, 
+            width=800)
         })
     })
 }
+
+# TODO: 1. Add comments to code; 2. Write CSS styling; 3. Include plot title and modify axes formatting 
